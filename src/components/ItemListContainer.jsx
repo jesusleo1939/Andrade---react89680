@@ -1,22 +1,22 @@
-import { useEffect } from "react"
-import { getProducts } from "../assets/mock/mock"
+import { useEffect, useState } from "react";
+import { getProducts } from "../assets/mock/mock";
+import ItemList from "./ItemList";
 
-useEffect(() => {
-  getProducts()
-  .then((res)=> console.log(res))
-  .catch((error)=> console.log(error))
-  
-}, [])
-console.log ("ItemListContainer")
+const ItemListContainer = ({ saludo = "Productos" }) => {
+  const [data, setData] = useState([]);
 
+  useEffect(() => {
+    getProducts()
+      .then((res) => setData(res))
+      .catch((error) => console.log(error));
+  }, []);
 
-const ItemListContainer = () => {
   return (
     <div>
-       
+      <h2 className="text-center mb-4">{saludo}</h2>
+      <ItemList data={data} />
     </div>
-  )
-  
-}
+  );
+};
 
-export default ItemListContainer
+export default ItemListContainer;

@@ -16,7 +16,7 @@ const Productos = [
         precio: "256",
         stock: 8,
         imagen: "https://www.warhammer.com/app/resources/catalog/product/920x950/99120108016_IKCastellan01.jpg?fm=webp&w=892&h=920",
-        category: "nuevos",
+        category: "mas vendidos",
         
     },
     {
@@ -40,7 +40,7 @@ const Productos = [
 ];
 
 let error = false;
-export const getProducts = ()=> {
+export const getProducts = () => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             if (error){
@@ -51,3 +51,17 @@ export const getProducts = ()=> {
         }, 2000);
     });
 }
+
+export const getOneProduct = (id) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const found = Productos.find((producto) => producto.id === id);
+
+      if (found) {
+        resolve(found);
+      } else {
+        reject("Producto no encontrado");
+      }
+    }, 1000);
+  });
+};

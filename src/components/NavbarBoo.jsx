@@ -1,22 +1,21 @@
 import ReactLogo from "../assets/logo.png";
 import CartWidget from "./Cartwidget";
+import { NavLink } from "react-router-dom";
 
 const NavbarBoo = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow sticky-top">
       <div className="container">
 
         {/* Logo */}
-        <a className="navbar-brand d-flex align-items-center" href="/">
+        <NavLink className="navbar-brand" to="/">
           <img
             src={ReactLogo}
             alt="Logo"
             width="50"
             height="50"
-            className="me-2"
           />
-          
-        </a>
+        </NavLink>
 
         {/* Botón hamburguesa */}
         <button
@@ -31,35 +30,47 @@ const NavbarBoo = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* Menú */}
+        {/* Menú colapsable */}
         <div
-          className="collapse navbar-collapse justify-content-between"
+          className="collapse navbar-collapse"
           id="navbarNav"
         >
           <ul className="navbar-nav mx-auto">
+
             <li className="nav-item">
-              <a className="nav-link fw-semibold" href="#">
-                Nuevo
-              </a>
+              <NavLink
+                className="nav-link"
+                to="/category/nuevos"
+              >
+                Nuevos
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link fw-semibold" href="#">
+              <NavLink
+                className="nav-link"
+                to="/category/descuento"
+              >
                 Ofertas
-              </a>
+              </NavLink>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link fw-semibold" href="#">
-                Contacto
-              </a>
+              <NavLink
+                className="nav-link"
+                to="/category/mas vendidos"
+              >
+                Más Vendidos
+              </NavLink>
             </li>
+
           </ul>
 
           {/* Carrito */}
           <div className="d-flex">
             <CartWidget />
           </div>
+
         </div>
       </div>
     </nav>

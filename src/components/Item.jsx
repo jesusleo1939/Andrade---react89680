@@ -1,6 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
+import { Link } from "react-router-dom";
 
 function Item({ product }) {
   return (
@@ -34,9 +35,9 @@ function Item({ product }) {
 
         <h4 className="text-success">${product.precio},00</h4>
 
-        <Button variant="primary">
-          Comprar
-        </Button>
+        <Link className="btn btn-dark" to={`/item/${product.id}`}>
+          Ver mas
+        </Link>
       </Card.Body>
     </Card>
   );

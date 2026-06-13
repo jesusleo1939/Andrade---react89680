@@ -1,8 +1,14 @@
 import ItemCount from "./ItemCount";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 const ItemDetail = ({ detalle }) => {
+    const contexto = useContext(CartContext);
+    const [purchase, setPurchase] = useState(false);
     const onAdd = (cantidad) => {
-        alert(`Se agregaron ${cantidad} unidades al carrito`);
+       addtoCart({...detalle, cantidad});
+       setPurchase(true);
+
     }
   return (
     <div className="card shadow border-0 p-4">
@@ -18,7 +24,7 @@ const ItemDetail = ({ detalle }) => {
       <p>Precio: ${detalle.precio},00</p>
       <p>Stock: {detalle.stock}</p>
 
-      <ItemCount stock={detalle.stock} onAdd={onAdd}/>
+      {purchase ? <link className='btn btn-primary' to="/cart">Ir al carrito</link>:<ItemCount stock={detalle.stock} onAdd={onAdd}/>}
     </div>
   );
 };

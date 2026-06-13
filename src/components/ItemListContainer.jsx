@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../assets/mock/mock";
 import ItemList from "./ItemList";
 import { useParams } from "react-router-dom";
+import LoaderComponent from "./LoaderComponent";
 
 const ItemListContainer = ({ saludo = "Productos" }) => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const {type} = useParams();
 
   useEffect(() => {
+    setLoading(true);
     getProducts()
       .then((res) => {
         if (type) {
@@ -16,14 +19,24 @@ const ItemListContainer = ({ saludo = "Productos" }) => {
           setData(res);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(()=> setLoading(false))
+      
+      
   }, [type]);
 
   return (
-    <div>
-      <h2 className="text-center mb-4">{saludo}</h2>
+    <>  
+    {
+      loading
+      ? <LoaderComponent text={type ? `Categoría: ${type}` : "Cargando..." } />
+      : <div>
+      <h2 className="text-center mb-4">{saludo }{type && <span>{type}</span>}</h2>
       <ItemList data={data} />
     </div>
+
+    }
+    </>
   );
 };
 

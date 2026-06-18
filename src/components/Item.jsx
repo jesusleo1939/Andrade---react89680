@@ -14,7 +14,7 @@ function Item({ product }) {
 
       <Card.Img
         variant="top"
-        src={product.imagen}
+        src={product.img}
         alt={product.nombre}
       />
 

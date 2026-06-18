@@ -1,17 +1,28 @@
 import { useEffect, useState } from "react";
 import ItemDetail from "./ItemDetail";
-import { getOneProduct } from "../assets/mock/mock";
+import LoaderComponent from "./LoaderComponent";
 import { useParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../service/firebase";
 
 const ItemDetailContainer = () => {
+  const [invalid, setInvalid] = useState(false);
   const [detalle, setDetalle] = useState(null);
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    getOneProduct(id)
-      .then((res) => setDetalle(res))
+    
+    const docRef = doc(db, "items", id);
+    getDoc(docRef)
+      .then((res) => {
+        if (res.data()) {
+          setDetalle({ id: res.id, ...res.data() });
+        } else {
+          setInvalid(true);
+        }
+      })
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
   }, [id]);

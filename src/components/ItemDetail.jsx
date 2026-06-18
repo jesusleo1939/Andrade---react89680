@@ -1,21 +1,21 @@
 import ItemCount from "./ItemCount";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 const ItemDetail = ({ detalle }) => {
-    const contexto = useContext(CartContext);
+    const { addToCart } = useContext(CartContext);
     const [purchase, setPurchase] = useState(false);
     const onAdd = (cantidad) => {
-       addtoCart({...detalle, cantidad});
+       addToCart({ ...detalle, quantity: cantidad });
        setPurchase(true);
-
     }
   return (
     <div className="card shadow border-0 p-4">
       <h2>Detalle del producto {detalle.nombre}</h2>
 
       <img
-        src={detalle.imagen}
+        src={detalle.img}
         alt={detalle.nombre}
         className="img-fluid"
       />
@@ -24,7 +24,7 @@ const ItemDetail = ({ detalle }) => {
       <p>Precio: ${detalle.precio},00</p>
       <p>Stock: {detalle.stock}</p>
 
-      {purchase ? <link className='btn btn-primary' to="/cart">Ir al carrito</link>:<ItemCount stock={detalle.stock} onAdd={onAdd}/>}
+      {purchase ? <Link className='btn btn-primary' to="/cart">Ir al carrito</Link> : <ItemCount stock={detalle.stock} onAdd={onAdd}/>}
     </div>
   );
 };

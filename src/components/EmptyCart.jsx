@@ -8,3 +8,4 @@ const EmptyCart = () => {
     )
 }
     
+export default EmptyCart;

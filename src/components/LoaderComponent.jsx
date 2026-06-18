@@ -1,5 +1,5 @@
 import React from "react";
-import {spiner} from "bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 const LoaderComponent = ({text}) => {
     return (
         <div className="d-flex justify-content-center align-items-center" style={{height: "100vh"}}>

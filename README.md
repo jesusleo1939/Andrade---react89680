@@ -1,16 +1,31 @@
-# React + Vite
+# Coder shop - The happy atrapos 🤖
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es un ecomerce realizado con la finalidad de poner en practica todo lo enseñado en el curso de react, 
 
-Currently, two official plugins are available:
+# Instalaciòn ╰(*°▽°*)╯
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1.Clone el repositorio del siguiente link : [link de repositorio](https://github.com/jesusleo1939/Andrade---react89680)
+2.colocarce en la carpeta raiz con el comando "cd coder-leo " 
+3.Instale las dependencias con "npm install"
+4.Para poder levantar el proyecto de manera local, utilice el comando "npm run dev "
 
-## React Compiler
+> Requisito tecnico es necesario contar con node instalado minimo la version 24.13.0
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Versiòn host 💾
 
-## Expanding the ESLint configuration
+Si no posee node puede visitar el siguiente link [Codershop app]()
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Librerias utilizadas 📚
+
+- [React](https://react.dev/) 19
+- [Vite](https://vite.dev/) 8
+- [React Router DOM](https://reactrouter.com/) 7
+- [Firebase](https://firebase.google.com/)
+- Cloud Firestore
+- [Bootstrap](https://getbootstrap.com/) 5
+- [React Bootstrap](https://react-bootstrap.github.io/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+
+
+Desarrollado con ☕☕ y 😭 por Leonardo Andrade
+

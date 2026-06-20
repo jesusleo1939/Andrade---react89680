@@ -6,10 +6,10 @@ import { CartContext } from "../context/CartContext";
 const ItemDetail = ({ detalle }) => {
     const { addToCart } = useContext(CartContext);
     const [purchase, setPurchase] = useState(false);
-    const onAdd = (cantidad) => {
-       addToCart({ ...detalle, quantity: cantidad });
-       setPurchase(true);
-    }
+   const onAdd = (cantidad) => {
+    addToCart(detalle, cantidad)
+    setPurchase(true)
+}
   return (
     <div className="card shadow border-0 p-4">
       <h2>Detalle del producto {detalle.nombre}</h2>

@@ -10,6 +10,7 @@ const Checkout = () => {
   const [secondMail, setSecondMail] = useState("");
   const [orderId, setOrderId] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { cart, totalPrice, clearCart } = useContext(CartContext);
 
@@ -21,20 +22,26 @@ const Checkout = () => {
   };
 
   const terminarCompra = (e) => {
-    // evitar que recargue pagina
     e.preventDefault();
 
-    if (!buyer.name || !buyer.phone || !buyer.address || !buyer.email || !buyer.email2) {
-      setError("Completa los campos HDLV");
+    if (
+      !buyer.name ||
+      !buyer.phone ||
+      !buyer.address ||
+      !buyer.email ||
+      !secondMail
+    ) {
+      setError("Completa todos los campos");
       return;
     }
 
     if (buyer.email !== secondMail) {
-      setError("Correos no coinciden");
+      setError("Los correos no coinciden");
       return;
     }
 
     setError(null);
+    setLoading(true);
 
     const order = {
       comprador: buyer,
@@ -44,49 +51,99 @@ const Checkout = () => {
     };
 
     const orderCollection = collection(db, "orders");
+
     addDoc(orderCollection, order)
       .then((res) => {
         setOrderId(res.id);
         clearCart();
       })
-      .catch((error) => console.log(error));
-  
-      if(!cart.lenght && !orderId){
-        return <EmptyCart/>
-      }
-    };
+      .catch((error) => {
+        console.log(error);
+        setError("Hubo un error al generar la orden");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
-
+  if (!cart.length && !orderId) {
+    return <EmptyCart />;
+  }
 
   return (
-    <>
-      <div>
-        {orderId ? (
-          <div>
-            <h1>Gracias por tu compra, bienvenido al vicio de los monos de plástico</h1>
-            <h2>Aquí tienes el código de tu orden: {orderId}</h2>
-            <Link to="/" className="btn btn-dark">
-              Volver a Home
-            </Link>
-          </div>
-        ) : (
-          <div>
-            <h1>Finalizar Compra</h1>
-            {error && <p className="text-danger">{error}</p>}
-            <form onSubmit={terminarCompra}>
-              <input className="form-control" type="text" name="name" placeholder="Nombre" onChange={buyerData} />
-              <input className="form-control" type="text" name="phone" placeholder="Teléfono" onChange={buyerData} />
-              <input className="form-control" type="text" name="address" placeholder="Dirección" onChange={buyerData} />
-              <input className="form-control" type="email" name="email" placeholder="Email" onChange={buyerData} />
-              <input className="form-control" type="email" name="email2" placeholder="Repetir email" onChange={(e) => setSecondMail(e.target.value)} />
-              <button type="submit" className="btn btn-success" disabled={loading}> {loading? "Procesando Compra": "Terminar Compra"}
-                Finalizar Compra
-              </button>
-            </form>
-          </div>
-        )}
-      </div>
-    </>
+    <div className="container mt-5">
+      {orderId ? (
+        <div className="text-center">
+          <h1>Gracias por tu compra</h1>
+
+          <h2>
+            Código de orden:
+          </h2>
+
+          <p className="fw-bold">{orderId}</p>
+
+          <Link to="/" className="btn btn-dark">
+            Volver a Home
+          </Link>
+        </div>
+      ) : (
+        <div>
+          <h1>Finalizar Compra</h1>
+
+          {error && <p className="text-danger">{error}</p>}
+
+          <form onSubmit={terminarCompra}>
+            <input
+              className="form-control mb-3"
+              type="text"
+              name="name"
+              placeholder="Nombre"
+              onChange={buyerData}
+            />
+
+            <input
+              className="form-control mb-3"
+              type="text"
+              name="phone"
+              placeholder="Teléfono"
+              onChange={buyerData}
+            />
+
+            <input
+              className="form-control mb-3"
+              type="text"
+              name="address"
+              placeholder="Dirección"
+              onChange={buyerData}
+            />
+
+            <input
+              className="form-control mb-3"
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={buyerData}
+            />
+
+            <input
+              className="form-control mb-3"
+              type="email"
+              name="email2"
+              placeholder="Repetir email"
+              onChange={(e) => setSecondMail(e.target.value)}
+            />
+
+            <button
+              type="submit"
+              className="btn btn-success"
+              disabled={loading}
+            >
+              {loading ? "Procesando compra..." : "Finalizar compra"}
+            </button>
+          </form>
+        </div>
+      )}
+    </div>
   );
 };
 

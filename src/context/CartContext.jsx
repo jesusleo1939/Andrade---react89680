@@ -7,19 +7,20 @@ const [cart, setCart] = useState([]);
  
 // Función para agregar un producto al carrito,sin repetir productos, si el producto ya existe en el carrito, se actualiza la cantidad
 const addToCart = (item, qty) => {
-   if (isInCart(item.id)) {
-     setCart(
-       cart.map((prod) => {
-         if (prod.id === item.id) {
-           return { ...prod, quantity: prod.quantity + qty };
-         }
-         return prod;
-       })
-     );
-   } else {
-     setCart([...cart, { ...item, quantity: qty }]);
-   }
-};
+if (isInCart(item.id)) {
+setCart(cart.map((prod) => {
+if (prod.id === item.id) {
+return {
+...prod,
+quantity: prod.quantity + qty
+}
+}
+return prod
+}))
+} else {
+setCart([...cart, { ...item, quantity: qty }])
+}
+}
 //Función para eliminar un producto del carrito
 const removeFromCart = (id) => {
     setCart(cart.filter((prod) => prod.id !== id));
